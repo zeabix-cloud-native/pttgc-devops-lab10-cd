@@ -19,7 +19,7 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      lables:
+      labels:
         app: {{ .name }}
         role: backend
     spec:
