@@ -24,7 +24,7 @@ userService:
       cpu: 500m
   domainName: "api-cluster02.z-unified.com"
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations: {}
   # kubernetes.io/ingress.class: nginx
