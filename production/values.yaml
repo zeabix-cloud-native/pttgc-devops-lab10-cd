@@ -11,7 +11,7 @@ imagePullSecrets: []
 userService:
   enabled: true
   name: "user-service"
-  image: "pttgcdevopsarc13.azurecr.io/user-service"
+  image: "pttgcdevopsacr02.azurecr.io/user-service"
   tag: "c0579fc9806603c2a54817b5fb19e3928337d2ed"
   pullPolicy: IfNotPresent
   servicePort: 8080
