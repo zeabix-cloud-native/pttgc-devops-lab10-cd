@@ -41,14 +41,14 @@ spec:
                 key: DBPASSWORD
           - name: DBUSERNAME
             valueFrom:
-            secretKeyRef:
-              name: mysqlsecret
-              key: DBUSERNAME
+              secretKeyRef:
+                name: mysqlsecret
+                key: DBUSERNAME
           - name: DBCONNSTR
             valueFrom:
-            secretKeyRef:
-              name: mysqlsecret
-              key: DBCONNSTR
+              secretKeyRef:
+                name: mysqlsecret
+                key: DBCONNSTR
           resources:
             requests:
               memory: {{ .resources.requests.memory }}
