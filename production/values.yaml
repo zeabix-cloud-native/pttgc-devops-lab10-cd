@@ -22,6 +22,7 @@ userService:
     limits:
       memory: 1.5G
       cpu: 1
+  domainName: "api-cluster02.z-unified.com"
 ingress:
   enabled: false
   className: ""
