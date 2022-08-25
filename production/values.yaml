@@ -9,7 +9,7 @@ image:
   tag: ""
 imagePullSecrets: []
 userService:
-  enabled: false
+  enabled: true
   name: "user-service"
   image: "pttgcdevopsarc13.azurecr.io/user-service"
   tag: "na"
