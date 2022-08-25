@@ -12,7 +12,7 @@ userService:
   enabled: false
   name: "user-service"
   image: "pttgcdevopsarc13.azurecr.io/user-service"
-  tag: "na"
+  tag: "bddabd116e8d697f14775b3a193fac9402a293b7"
   pullPolicy: IfNotPresent
   servicePort: 8080
   resources:
