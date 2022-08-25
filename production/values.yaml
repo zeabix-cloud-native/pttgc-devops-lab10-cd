@@ -11,7 +11,7 @@ imagePullSecrets: []
 userService:
   enabled: true
   name: "user-service"
-  image: "pttgcdevopsacr02.azurecr.io/user-service"
+  image: "pttgcdevopsacr02.azurecr.io/user-service" #Change this `pttgcdevopsacr02.azureecr.io` to your own acr
   tag: "v1.1.1"
   pullPolicy: IfNotPresent
   servicePort: 8080
@@ -22,7 +22,7 @@ userService:
     limits:
       memory: 1G
       cpu: 500m
-  domainName: "api-cluster02.z-unified.com"
+  domainName: "api-cluster02.z-unified.com" # Change this to your domain that provided in spreadsheet
 ingress:
   enabled: true
   className: ""
