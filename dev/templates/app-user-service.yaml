@@ -1,0 +1,83 @@
+{{- if .Values.userService.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+{{- with .Values.userService }}
+  name: {{ .name }}
+  labels:
+    app: {{ .name }}
+spec:
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      app: {{ .name }}
+{{- end}}
+  replicas: {{ .Values.replicaCount }}
+{{- with .Values.userService }}
+  strategy: 
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+        role: backend
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: {{ printf "%s:%s" .image .tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .servicePort }}
+          volumeMounts:
+          - name: secrets-store-inline
+            mountPath: "/mnt/secrets-store"
+            readOnly: true
+          env:
+          - name: DBPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: DBPASSWORD
+          - name: DBUSERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: DBUSERNAME
+          - name: DBCONNSTR
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: DBCONNSTR
+          resources:
+            requests:
+              memory: {{ .resources.requests.memory }}
+              cpu: {{ .resources.requests.cpu }}
+            limits:
+              memory: {{ .resources.limits.memory }}
+              cpu: {{ .resources.limits.cpu }}
+      volumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname"
+          nodePublishSecretRef:                       # Only required when using service principal mode
+            name: secrets-store-creds                 # Only required when using service principal mode        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+spec:
+  ports:
+  - name: http
+    port: {{ .servicePort }}
+    protocol: TCP
+    targetPort: {{ .servicePort }}
+  selector:
+    app: {{ .name }}
+  type: ClusterIP
+{{- end }}
+{{- end }}
