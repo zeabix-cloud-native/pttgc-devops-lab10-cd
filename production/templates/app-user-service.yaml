@@ -40,7 +40,7 @@ spec:
                 name: mysqlsecret
                 key: DBPASSWORD
           - name: DBUSERNAME
-          valueFrom:
+            valueFrom:
             secretKeyRef:
               name: mysqlsecret
               key: DBUSERNAME
